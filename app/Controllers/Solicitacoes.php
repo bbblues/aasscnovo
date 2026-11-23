@@ -99,7 +99,7 @@ class Solicitacoes extends BaseController
             return redirect()->to('solicitacoes')->with('error', 'Solicitação não encontrada.');
         }
 
-        if (! $this->validate($this->regrasSolicitacao())) {
+        if (! $this->validate($this->regrasSolicitacao(false))) {
             return redirect()->back()->withInput()
                 ->with('errors', $this->validator->getErrors());
         }
@@ -129,7 +129,7 @@ class Solicitacoes extends BaseController
             return redirect()->to('solicitacoes');
         }
 
-        if (! $this->validate($this->regrasSolicitacao())) {
+        if (! $this->validate($this->regrasSolicitacao(true))) {
             return redirect()->back()->withInput()
                 ->with('errors', $this->validator->getErrors());
         }
@@ -262,12 +262,14 @@ class Solicitacoes extends BaseController
     /**
      * Regras de validação dos campos de solicitação.
      *
+     * `spessoa` é obrigatório apenas no cadastro (`add`), pois o formulário de
+     * edição no accordion não reenvia esse campo (ele já é conhecido pelo `sid`).
+     *
      * @return array<string, string>
      */
-    private function regrasSolicitacao(): array
+    private function regrasSolicitacao(bool $requerPessoa = false): array
     {
-        return [
-            'spessoa'      => 'required|integer',
+        $regras = [
             'sol_sit_id'   => 'required|in_list[1,2,3]',
             'pedido'       => 'required',
             'responsavel'  => 'required',
@@ -275,5 +277,11 @@ class Solicitacoes extends BaseController
             'procedimento' => 'permit_empty|max_length[255]',
             'obs'          => 'permit_empty',
         ];
+
+        if ($requerPessoa) {
+            $regras['spessoa'] = 'required|integer';
+        }
+
+        return $regras;
     }
 }
