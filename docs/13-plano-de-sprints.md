@@ -144,16 +144,16 @@ layout responsivo com Bootstrap 5.
 
 **Objetivo:** implementar o coração do sistema.
 
-- [ ] Pessoas: listar (`/pessoas`) com filtros (responsável, cliente, pessoa,
+- [x] Pessoas: listar (`/pessoas`) com filtros (responsável, cliente, pessoa,
       município, período) persistidos em sessão + "Limpar" + paginação (20/pág);
       editar (`pessoas/edit/{id}`) atualizando pessoa + telefone.
-- [ ] Solicitações: lista geral (`/solicitacoes`), em aberto (`/solicitacoes/abertas`),
+- [x] Solicitações: lista geral (`/solicitacoes`), em aberto (`/solicitacoes/abertas`),
       editar (`/solicitacoes/edit/{pes_id}`) em 2 colunas (cadastro + accordion),
       atualizar (`update/{sid}`), cadastrar (`add`), cadastrar pessoa com
       solicitação opcional (`add_pessoa` usando `separa_post`).
-- [ ] Regras: `situacao` derivada de `sol_sit_id`; `criado = date('Y-m-d')` e
+- [x] Regras: `situacao` derivada de `sol_sit_id`; `criado = date('Y-m-d')` e
       `created = UNIX_TIMESTAMP()`; `confirm()` antes de atualizar.
-- [ ] Campos de pessoa conforme `02` (incl. decisão D4).
+- [x] Campos de pessoa conforme `02` (incl. decisão D4).
 
 **Critério de aceite:** UC-03, UC-04, UC-05, UC-06 funcionam ponta a ponta;
 filtros persistem em sessão.

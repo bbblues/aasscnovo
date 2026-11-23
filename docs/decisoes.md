@@ -46,6 +46,22 @@ gráficos de barras para "último ano" (365 dias) e reserva o período mensal (3
 para o gráfico de situação, eliminando a ambiguidade sem alterar o comportamento
 efetivo das barras.
 
+## D4 — Campos `uc`, `pes_user` e `pes_catpessoa` em `pessoas`
+
+**Decisão (implementada na Sprint 5):** esses campos não são expostos no
+formulário de pessoa (paridade com o legado) e são preenchidos automaticamente:
+
+| Campo | Tipo | Comportamento |
+| --- | --- | --- |
+| `uc` | varchar(255) NOT NULL | gravado como string vazia `''` (contexto não confirmado) |
+| `pes_user` | int(3) | id do usuário logado que cadastrou a pessoa (apenas na criação) |
+| `pes_catpessoa` | int(9) NOT NULL | gravado como `0` (sem categoria; exposição no formulário fica para a Sprint 6, decisão D5) |
+
+**Justificativa:** o formulário legado (`02-requisitos-funcionais.md`) não possui
+esses campos, mas as colunas são NOT NULL (ou de preenchimento implícito no caso
+de `pes_user`). Preencher com valores neutros preserva a paridade funcional sem
+inventar dados de negócio. A decisão pode ser refinada quando D5 for fechada.
+
 ## Senha inicial do ambiente novo (seeder `AuthSeeder`)
 
 - e-mail: `admin@aassc.com.br`

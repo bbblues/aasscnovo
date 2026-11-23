@@ -9,6 +9,20 @@ use CodeIgniter\Router\RouteCollection;
 // Dashboard (Sprint 4) — protegido pelo filtro global `auth`.
 $routes->get('/', 'Home::index');
 
+// Pessoas (Sprint 5)
+$routes->match(['GET', 'POST'], 'pessoas', 'Pessoas::index');
+$routes->get('pessoas/limpar', 'Pessoas::limpar');
+$routes->match(['GET', 'POST'], 'pessoas/edit/(:num)', 'Pessoas::edit/$1');
+
+// Solicitações (Sprint 5)
+$routes->match(['GET', 'POST'], 'solicitacoes', 'Solicitacoes::index');
+$routes->get('solicitacoes/limpar', 'Solicitacoes::limpar');
+$routes->get('solicitacoes/abertas', 'Solicitacoes::abertas');
+$routes->get('solicitacoes/edit/(:num)', 'Solicitacoes::edit/$1');
+$routes->post('solicitacoes/update/(:num)', 'Solicitacoes::update/$1');
+$routes->post('solicitacoes/add', 'Solicitacoes::add');
+$routes->match(['GET', 'POST'], 'solicitacoes/add_pessoa', 'Solicitacoes::addPessoa');
+
 // Autenticação — público
 $routes->match(['GET', 'POST'], 'auth/login', 'Auth::login');
 $routes->match(['GET', 'POST'], 'auth/forgot_password', 'Auth::forgotPassword');
