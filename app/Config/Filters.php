@@ -2,6 +2,8 @@
 
 namespace Config;
 
+use App\Filters\AuthFilter;
+use App\Filters\GroupFilter;
 use CodeIgniter\Config\Filters as BaseFilters;
 use CodeIgniter\Filters\Cors;
 use CodeIgniter\Filters\CSRF;
@@ -26,6 +28,8 @@ class Filters extends BaseFilters
      */
     public array $aliases = [
         'csrf'          => CSRF::class,
+        'auth'          => AuthFilter::class,
+        'group'         => GroupFilter::class,
         'toolbar'       => DebugToolbar::class,
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
@@ -72,9 +76,14 @@ class Filters extends BaseFilters
      */
     public array $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
+            'csrf',
+            'auth' => [
+                'except' => [
+                    'auth/login',
+                    'auth/forgot_password',
+                    'auth/reset_password/*',
+                ],
+            ],
         ],
         'after' => [
             // 'honeypot',
@@ -106,5 +115,17 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [];
+    public array $filters = [
+        'group:admin' => [
+            'before' => [
+                'auth',
+                'auth/create_user',
+                'auth/edit_user/*',
+                'auth/activate/*',
+                'auth/deactivate/*',
+                'auth/create_group',
+                'auth/edit_group/*',
+            ],
+        ],
+    ];
 }

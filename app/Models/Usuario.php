@@ -30,4 +30,12 @@ class Usuario extends BaseModel
         'company',
         'phone',
     ];
+
+    /**
+     * Busca um usuário pelo e-mail (identity do login).
+     */
+    public function buscarPorEmail(string $email): ?array
+    {
+        return $this->where('email', $email)->first();
+    }
 }
