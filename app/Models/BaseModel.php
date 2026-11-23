@@ -20,7 +20,9 @@ abstract class BaseModel extends Model
 
     protected function initialize(): void
     {
-        if (! self::$bigSelectsApplied) {
+        // `SQL_BIG_SELECTS` é específico do MySQL/MariaDB. Em outros drivers
+        // (ex.: SQLite usado nos testes) a instrução não existe e quebraria.
+        if (! self::$bigSelectsApplied && $this->db->DBDriver === 'MySQLi') {
             $this->db->query('SET SESSION SQL_BIG_SELECTS=1');
             self::$bigSelectsApplied = true;
         }

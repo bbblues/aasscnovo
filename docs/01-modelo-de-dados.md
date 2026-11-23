@@ -10,7 +10,7 @@
 ### `catpessoa` (categoria de pessoa)
 | Coluna | Tipo | Observação |
 | --- | --- | --- |
-| cp_id | int(9) UNSIGNED | PK (sem AUTO_INCREMENT no dump) |
+| cp_id | int(9) UNSIGNED | chave lógica — **sem PK/AUTO_INCREMENT no dump** |
 | cp_nome | varchar(255) | nome da categoria |
 
 > Charset `latin1` (inconsistente com o restante, que é `utf8`).
@@ -35,17 +35,21 @@
 ### `groups` (Ion Auth)
 | Coluna | Tipo |
 | --- | --- |
-| id | mediumint(8) UNSIGNED (PK) |
+| id | mediumint(8) UNSIGNED |
 | name | varchar(20) |
 | description | varchar(100) |
+
+> Sem PK/AUTO_INCREMENT no dump (mantido por fidelidade ao banco original).
 
 ### `login_attempts` (Ion Auth)
 | Coluna | Tipo |
 | --- | --- |
-| id | int(11) UNSIGNED (PK) |
+| id | int(11) UNSIGNED |
 | ip_address | varchar(15) |
 | login | varchar(100) |
 | time | int(11) UNSIGNED |
+
+> Sem PK/AUTO_INCREMENT no dump (mantido por fidelidade ao banco original).
 
 ### `pessoas`
 | Coluna | Tipo | Observação |

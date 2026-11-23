@@ -48,8 +48,8 @@ docker compose up -d --build
 # 4. Instale as dependências PHP (vendor/ não é versionado)
 docker compose run --rm web composer install
 
-# 5. Crie o schema do banco pelas migrações
-docker compose exec web php spark migrate
+# 5. Importe o banco original (schema + dados do legado)
+docker compose exec -T db mysql -uaassc -paassc aassc < docs/_referencia/aassc.sql
 
 # 6. Acesse http://localhost:8080
 ```
@@ -62,14 +62,28 @@ Serviços expostos:
 | Adminer | http://localhost:8081 | servidor `db`, usuário `aassc`, senha `aassc` |
 | MariaDB | localhost:3306 | banco `aassc` |
 
-Alternativa ao passo 5 (banco novo): importar o dump do legado —
-`docker compose exec -T db mysql -uaassc -paassc aassc < docs/_referencia/aassc.sql`.
+> O banco original já contém o schema e os dados. **Não** rode
+> `php spark migrate` sobre ele — as migrações de criação tentariam recriar
+> tabelas existentes e falhariam.
+
+### Criar um banco vazio (opcional, só para validar as migrações)
+
+Para reproduzir o schema **do zero, sem dados**, use um volume novo:
+
+```bash
+docker compose down -v              # apaga o volume de dados atual
+docker compose up -d --build
+docker compose run --rm web composer install
+docker compose exec web php spark migrate
+```
 
 ## Banco de dados
 
-- As migrações em `app/Database/Migrations` espelham o schema legado e existem
-  para tornar o ambiente **novo** (dev/teste) reproduzível.
-- Em produção, com banco já existente, **não** rode as migrações de criação
+- **Fonte de verdade:** o banco original do legado (`docs/_referencia/aassc.sql`).
+  A aplicação apenas lê/escreve nele; o schema **não** é alterado pela aplicação.
+- As migrações em `app/Database/Migrations` existem **apenas** para reproduzir um
+  schema **novo e vazio** (dev/teste). Em qualquer banco que já tenha o schema ou
+  dados, **não** rode as migrações de criação
   (ver [`docs/09-estrategia-de-banco.md`](docs/09-estrategia-de-banco.md)).
 - Credenciais ficam no `.env` (fora do versionamento); `.env.example` só
   documenta os valores padrão do Docker.
