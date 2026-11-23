@@ -24,4 +24,77 @@ class Solicitacao extends BaseModel
         'created',
         'criado',
     ];
+
+    /**
+     * Solicitações em aberto do agente logado (tabela do dashboard).
+     *
+     * Filtro: `sagente = $userId` e `sol_sit_id != 3`.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public function solPorAgenteAberta(int $userId): array
+    {
+        return $this->db->table('solicitacoes s')
+            ->select('s.sid, s.criado, s.pedido, s.procedimento, s.responsavel, s.sol_sit_id, p.pes_id, p.pes_nome, p.pes_cidade, u.username AS cliente')
+            ->join('pessoas p', 'p.pes_id = s.spessoa')
+            ->join('users u', 'u.id = p.pes_cliente', 'left')
+            ->where('s.sagente', $userId)
+            ->where('s.sol_sit_id !=', 3)
+            ->orderBy('s.criado', 'DESC')
+            ->get()
+            ->getResultArray();
+    }
+
+    /**
+     * Contagem de solicitações por cliente nos últimos N dias (gráficos de barras).
+     *
+     * Exclui os usuários de sistema (ids 76 e 74) e retorna `['username' => total]`.
+     *
+     * @return array<string, int>
+     */
+    public function solPorCliente(int $dias): array
+    {
+        $sql = 'SELECT u.username AS label, COUNT(*) AS total
+                FROM solicitacoes s
+                JOIN pessoas p ON p.pes_id = s.spessoa
+                JOIN users u ON u.id = p.pes_cliente
+                WHERE s.criado >= DATE_SUB(CURRENT_DATE(), INTERVAL ? DAY)
+                  AND u.id NOT IN (76, 74)
+                GROUP BY u.username
+                ORDER BY total DESC';
+
+        $rows = $this->db->query($sql, [$dias])->getResultArray();
+
+        $dados = [];
+        foreach ($rows as $row) {
+            $label         = ($row['label'] !== null && $row['label'] !== '') ? $row['label'] : 'sem cliente';
+            $dados[$label] = (int) $row['total'];
+        }
+
+        return $dados;
+    }
+
+    /**
+     * Contagem de solicitações por situação nos últimos N dias (gráfico doughnut).
+     *
+     * @return array<string, int>
+     */
+    public function solPorSituacao(int $dias): array
+    {
+        $sql = 'SELECT situacao AS label, COUNT(*) AS total
+                FROM solicitacoes
+                WHERE criado >= DATE_SUB(CURRENT_DATE(), INTERVAL ? DAY)
+                GROUP BY situacao
+                ORDER BY total DESC';
+
+        $rows = $this->db->query($sql, [$dias])->getResultArray();
+
+        $dados = [];
+        foreach ($rows as $row) {
+            $label         = ($row['label'] !== null && $row['label'] !== '') ? $row['label'] : 'Sem situação';
+            $dados[$label] = (int) $row['total'];
+        }
+
+        return $dados;
+    }
 }

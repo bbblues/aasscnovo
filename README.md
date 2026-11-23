@@ -16,8 +16,9 @@ Especificação completa em [`docs/`](docs/README.md) — fonte única de verdad
 | 0 | Kickoff e definições | ⚠️ parcial (decisões D1–D7 em aberto) |
 | 1 | Bootstrap do CodeIgniter 4 + Docker | ✅ concluída |
 | 2 | Banco de dados e camada de dados | ✅ concluída |
-| 3 | Autenticação e autorização | ⏳ próxima |
-| 4–8 | Layout/dashboard, pessoas/solicitações, relatórios, qualidade, deploy | ⏳ planejadas |
+| 3 | Autenticação e autorização | ✅ concluída |
+| 4 | Layout base + dashboard + gráficos | ✅ concluída |
+| 5–8 | Pessoas/solicitações, comentários/relatórios, qualidade, deploy | ⏳ planejadas |
 
 Plano detalhado: [`docs/13-plano-de-sprints.md`](docs/13-plano-de-sprints.md).
 

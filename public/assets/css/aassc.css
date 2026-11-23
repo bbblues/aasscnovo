@@ -1,0 +1,91 @@
+/*
+ * aassc.css — estilos customizados do Sistema AASSC.
+ *
+ * Portados do legado (`views/css.php`) para um arquivo estático em
+ * `public/assets/css/`, conforme Sprint 4 (docs/05-interfaces.md).
+ */
+
+:root {
+    --aassc-teal: #17a2b8;
+    --aassc-teal-dark: #138496;
+    --aassc-teal-darker: #117a8b;
+}
+
+body {
+    background-color: #eaeaea;
+    font-size: 0.8rem;
+}
+
+/* Navbar e identidade visual */
+.navbar-aassc {
+    background-color: var(--aassc-teal) !important;
+}
+
+.navbar-aassc .navbar-brand img {
+    height: 1.4rem;
+    width: auto;
+    margin-right: 0.4rem;
+    vertical-align: -0.2rem;
+}
+
+/* Botões na cor institucional */
+.btn-primary {
+    background-color: var(--aassc-teal);
+    border-color: var(--aassc-teal);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--aassc-teal-dark);
+    border-color: var(--aassc-teal-darker);
+}
+
+.btn-outline-primary {
+    color: var(--aassc-teal);
+    border-color: var(--aassc-teal);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--aassc-teal);
+    border-color: var(--aassc-teal);
+}
+
+/* Classes reaproveitadas do legado (docs/05-interfaces.md) */
+.tabela-dashboard {
+    font-size: 0.8rem;
+}
+
+.titulo_dashboard {
+    font-weight: 600;
+}
+
+.form_topo {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+}
+
+.nao-quebrar-linha {
+    white-space: nowrap;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.ver_tudo {
+    white-space: nowrap;
+}
+
+/* Rodapé */
+.rodape-aassc {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    color: #6c757d;
+    border-top: 1px solid #dee2e6;
+    font-size: 0.75rem;
+}

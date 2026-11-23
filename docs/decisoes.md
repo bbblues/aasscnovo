@@ -1,7 +1,7 @@
 # Decisões de projeto (D1–D7)
 
-> Registro das decisões em aberto listadas em `13-plano-de-sprints.md`.
-> As demais decisões (D3–D7) permanecem abertas e serão registradas aqui
+> Registro das decisões listadas em `13-plano-de-sprints.md`.
+> As demais decisões (D4–D7) permanecem abertas e serão registradas aqui
 > quando fechadas.
 
 ## D1 — Auth no CI4
@@ -32,6 +32,19 @@ dependência externa sem ganho claro.
   por grupo, se necessária, será aplicada em sprint futura.
 - Autorização centralizada em filters (`auth` global + `group:admin` para
   `/auth`), sem checagem repetida nos construtores dos controllers.
+
+## D3 — Período dos gráficos (ano vs mês)
+
+**Decisão:** manter os períodos descritos em `06-relatorios-e-dashboard.md`:
+
+- Gráficos de barras (percentual e absoluto): **último ano** → `sol_por_cliente(365)`.
+- Gráfico doughnut (por situação): **últimos 30 dias** → `sol_por_situacao(30)`.
+
+**Justificativa:** o legado chamava `sol_por_cliente(365)` duas vezes usando rótulos
+conflitantes ("ano" e "mês"). A especificação de reescrita já normaliza os dois
+gráficos de barras para "último ano" (365 dias) e reserva o período mensal (30 dias)
+para o gráfico de situação, eliminando a ambiguidade sem alterar o comportamento
+efetivo das barras.
 
 ## Senha inicial do ambiente novo (seeder `AuthSeeder`)
 
