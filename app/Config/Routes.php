@@ -17,7 +17,7 @@ $routes->match(['GET', 'POST'], 'pessoas/edit/(:num)', 'Pessoas::edit/$1');
 // Solicitações (Sprint 5)
 $routes->match(['GET', 'POST'], 'solicitacoes', 'Solicitacoes::index');
 $routes->get('solicitacoes/limpar', 'Solicitacoes::limpar');
-$routes->get('solicitacoes/abertas', 'Solicitacoes::abertas');
+$routes->match(['GET', 'POST'], 'solicitacoes/abertas', 'Solicitacoes::abertas');
 $routes->get('solicitacoes/edit/(:num)', 'Solicitacoes::edit/$1');
 $routes->post('solicitacoes/update/(:num)', 'Solicitacoes::update/$1');
 $routes->post('solicitacoes/add', 'Solicitacoes::add');

@@ -1,7 +1,7 @@
 # Decisões de projeto (D1–D7)
 
 > Registro das decisões listadas em `13-plano-de-sprints.md`.
-> As demais decisões (D4–D7) permanecem abertas e serão registradas aqui
+> As demais decisões (D5–D7) permanecem abertas e serão registradas aqui
 > quando fechadas.
 
 ## D1 — Auth no CI4

@@ -130,7 +130,6 @@ if (! function_exists('separa_post')) {
      * Divide o POST em pessoa / telefone / solicitação.
      *
      * Convenção: os campos do formulário usam os nomes das colunas do banco.
-     * A ser validado/refinado na Sprint 5 (cadastro de pessoa com solicitação).
      *
      * @return array{pessoa: array<string, mixed>, telefone: array<string, mixed>, solicitacao: array<string, mixed>}
      */

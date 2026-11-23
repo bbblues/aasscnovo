@@ -18,7 +18,8 @@ Especificação completa em [`docs/`](docs/README.md) — fonte única de verdad
 | 2 | Banco de dados e camada de dados | ✅ concluída |
 | 3 | Autenticação e autorização | ✅ concluída |
 | 4 | Layout base + dashboard + gráficos | ✅ concluída |
-| 5–8 | Pessoas/solicitações, comentários/relatórios, qualidade, deploy | ⏳ planejadas |
+| 5 | Pessoas + Solicitações (núcleo do negócio) | ✅ concluída |
+| 6–8 | Comentários/relatórios, qualidade, deploy | ⏳ planejadas |
 
 Plano detalhado: [`docs/13-plano-de-sprints.md`](docs/13-plano-de-sprints.md).
 
