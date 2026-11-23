@@ -164,11 +164,11 @@ filtros persistem em sessão.
 
 **Objetivo:** fechar a paridade funcional.
 
-- [ ] Comentários: listar (`/coments`, avatar via `simple_lower(name)`), adicionar
+- [x] Comentários: listar (`/coments`, avatar via `simple_lower(name)`), adicionar
       (`add/{pessoa}`), editar (`update/{cid}`) — edição inline somente pelo autor.
-- [ ] Relatório de atividades (`/relatorios`): mescla comentários + aberturas de
+- [x] Relatório de atividades (`/relatorios`): mescla comentários + aberturas de
       solicitação, ordenado por `created` (`usort`), filtros idênticos.
-- [ ] CRUDs auxiliares: `cidades`, `procedimentos`, `catpessoas`
+- [x] CRUDs auxiliares: `cidades`, `procedimentos`, `catpessoas`
       (listar/add/edit/remove), conforme D5.
 
 **Critério de aceite:** UC-07 e UC-08 completos; relatório consolidado correto;

@@ -44,6 +44,40 @@
                                 ]) ?>
                                 <button type="submit" class="btn btn-primary btn-sm">Salvar solicitação</button>
                             <?= form_close() ?>
+
+                            <hr>
+
+                            <h6 class="mb-2">Comentários / Atualizações</h6>
+
+                            <?php if (empty($s['comentarios'])): ?>
+                                <p class="text-muted small mb-2">Nenhum comentário.</p>
+                            <?php else: ?>
+                                <div class="list-group mb-3">
+                                    <?php foreach ($s['comentarios'] as $com): ?>
+                                        <?php $podeEditar = (int) ($com['uid'] ?? 0) === (int) session()->get('user_id'); ?>
+                                        <div class="list-group-item py-2">
+                                            <div class="small text-muted mb-1">
+                                                <?= esc($com['name'] ?? '—') ?> — <?= esc(date('d/m/y H:i', (int) $com['created'])) ?>
+                                            </div>
+                                            <?php if ($podeEditar): ?>
+                                                <?= form_open('coments/update/' . $com['cid'], ['class' => 'm-0']) ?>
+                                                    <textarea class="form-control form-control-sm mb-1" name="subject" rows="2" required><?= esc($com['subject']) ?></textarea>
+                                                    <button type="submit" class="btn btn-sm btn-outline-primary">Salvar</button>
+                                                <?= form_close() ?>
+                                            <?php else: ?>
+                                                <textarea class="form-control form-control-sm" rows="2" disabled><?= esc($com['subject']) ?></textarea>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+
+                            <?= form_open('coments/add/' . $pessoa['pes_id'], ['class' => 'm-0']) ?>
+                                <input type="hidden" name="nid" value="<?= (int) $s['sid'] ?>">
+                                <label class="form-label small mb-1">Novo comentário</label>
+                                <textarea class="form-control form-control-sm mb-1" name="subject" rows="2" required placeholder="Escreva uma atualização..."></textarea>
+                                <button type="submit" class="btn btn-sm btn-primary">Adicionar comentário</button>
+                            <?= form_close() ?>
                         </div>
                     </div>
                 </div>

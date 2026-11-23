@@ -159,6 +159,24 @@ class Solicitacao extends BaseModel
     }
 
     /**
+     * Aberturas de solicitação para o relatório de atividades (sem paginação).
+     *
+     * @param array<string, string> $filtros
+     *
+     * @return list<array<string, mixed>>
+     */
+    public function aberturas(array $filtros): array
+    {
+        $builder = $this->db->table('solicitacoes s')
+            ->select("'Abertura de solicitação' AS atividade, s.created, p.pes_nome AS nome, s.pedido")
+            ->join('pessoas p', 'p.pes_id = s.spessoa');
+
+        $this->aplicarFiltros($builder, $filtros);
+
+        return $builder->get()->getResultArray();
+    }
+
+    /**
      * Base comum das consultas de solicitações (joins + colunas).
      *
      * @return \CodeIgniter\Database\BaseBuilder

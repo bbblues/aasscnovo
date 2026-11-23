@@ -184,3 +184,25 @@ if (! function_exists('simple_lower')) {
         return str_replace($acentos, '', $texto);
     }
 }
+
+if (! function_exists('mesclar_atividades')) {
+    /**
+     * Mescla comentários e aberturas de solicitação do relatório de atividades,
+     * ordenando por `created` (timestamp) de forma decrescente.
+     *
+     * @param list<array<string, mixed>> $comentarios
+     * @param list<array<string, mixed>> $aberturas
+     *
+     * @return list<array<string, mixed>>
+     */
+    function mesclar_atividades(array $comentarios, array $aberturas): array
+    {
+        $atividades = array_merge($comentarios, $aberturas);
+
+        usort($atividades, static function (array $a, array $b): int {
+            return (int) ($b['created'] ?? 0) <=> (int) ($a['created'] ?? 0);
+        });
+
+        return $atividades;
+    }
+}

@@ -1,8 +1,8 @@
 # Decisões de projeto (D1–D7)
 
 > Registro das decisões listadas em `13-plano-de-sprints.md`.
-> As demais decisões (D5–D7) permanecem abertas e serão registradas aqui
-> quando fechadas.
+> As decisões D6 e D7 permanecem abertas e serão registradas aqui quando
+> fechadas. A decisão D5 foi fechada na Sprint 6 (ver seção abaixo).
 
 ## D1 — Auth no CI4
 
@@ -61,6 +61,26 @@ formulário de pessoa (paridade com o legado) e são preenchidos automaticamente
 esses campos, mas as colunas são NOT NULL (ou de preenchimento implícito no caso
 de `pes_user`). Preencher com valores neutros preserva a paridade funcional sem
 inventar dados de negócio. A decisão pode ser refinada quando D5 for fechada.
+
+## D5 — CRUDs auxiliares (cidades/procedimentos/catpessoas)
+
+**Decisão (implementada na Sprint 6):** expor os três CRUDs no menu, em um
+dropdown **Cadastros** (Cidades, Procedimentos, Categorias de Pessoa),
+acessível a qualquer usuário logado (filtro global `auth`).
+
+- Cidades (`/cidades`): `cid` AUTO_INCREMENT, campo `cinome`.
+- Procedimentos (`/procedimentos`): `med_id` AUTO_INCREMENT, campo `med_nome`.
+- Categorias de pessoa (`/catpessoas`): `cp_id` sem AUTO_INCREMENT, calculado
+  via `CategoriaPessoa::proximoId()`; campo `cp_nome`.
+
+**Justificativa:** a Sprint 6 exige implementar listar/adicionar/editar/remover,
+o que só faz sentido se as telas forem alcançáveis. O legado mantinha esses
+módulos fora do menu (apenas como base de lookup); a exposição no menu
+operacionaliza a manutenção dos dados usados como selects.
+
+> Observação: o campo `pes_catpessoa` no formulário de pessoa continua sendo
+> preenchido automaticamente com `0` (D4). Vincular o select de categoria ao
+> cadastro de pessoa é uma melhoria opcional, fora do escopo desta sprint.
 
 ## Senha inicial do ambiente novo (seeder `AuthSeeder`)
 

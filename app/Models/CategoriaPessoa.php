@@ -19,4 +19,18 @@ class CategoriaPessoa extends BaseModel
         'cp_id',
         'cp_nome',
     ];
+
+    /**
+     * `cp_id` não possui AUTO_INCREMENT no dump, então o próximo id é calculado
+     * a partir do maior valor atual.
+     */
+    public function proximoId(): int
+    {
+        $row = $this->db->table('catpessoa')
+            ->selectMax('cp_id', 'maximo')
+            ->get()
+            ->getRow();
+
+        return (int) ($row->maximo ?? 0) + 1;
+    }
 }

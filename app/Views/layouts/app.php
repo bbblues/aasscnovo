@@ -40,6 +40,14 @@
                             <li><a class="dropdown-item" href="<?= site_url('relatorios') ?>">Relatório de Atividades</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?= site_url('cidades') ?>">Cidades</a></li>
+                            <li><a class="dropdown-item" href="<?= site_url('procedimentos') ?>">Procedimentos</a></li>
+                            <li><a class="dropdown-item" href="<?= site_url('catpessoas') ?>">Categorias de Pessoa</a></li>
+                        </ul>
+                    </li>
                 </ul>
 
                 <form class="d-flex me-3" action="<?= site_url('pessoas') ?>" method="get" role="search">

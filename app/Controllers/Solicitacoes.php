@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\Concerns\ManipulaPessoa;
 use App\Models\Cidade;
+use App\Models\Comentario;
 use App\Models\Pessoa;
 use App\Models\Procedimento;
 use App\Models\Solicitacao;
@@ -24,6 +25,8 @@ class Solicitacoes extends BaseController
 
     protected Solicitacao $solicitacoes;
 
+    protected Comentario $comentarios;
+
     protected Telefone $telefones;
 
     protected Usuario $usuarios;
@@ -40,6 +43,7 @@ class Solicitacoes extends BaseController
 
         $this->pessoas       = new Pessoa();
         $this->solicitacoes  = new Solicitacao();
+        $this->comentarios   = new Comentario();
         $this->telefones     = new Telefone();
         $this->usuarios      = new Usuario();
         $this->cidades       = new Cidade();
@@ -75,11 +79,17 @@ class Solicitacoes extends BaseController
             return redirect()->to('solicitacoes')->with('error', 'Pessoa não encontrada.');
         }
 
+        $solicitacoes = $this->solicitacoes->daPessoa((int) $pesId);
+        foreach ($solicitacoes as &$solicitacao) {
+            $solicitacao['comentarios'] = $this->comentarios->daSolicitacao((int) $solicitacao['sid']);
+        }
+        unset($solicitacao);
+
         $dados                 = $this->dadosFormularioPessoa();
         $dados['title']        = 'Atendimento — ' . $pessoa['pes_nome'];
         $dados['pessoa']       = $pessoa;
         $dados['telefone']     = $this->telefones->daPessoa((int) $pesId);
-        $dados['solicitacoes'] = $this->solicitacoes->daPessoa((int) $pesId);
+        $dados['solicitacoes'] = $solicitacoes;
 
         return view('solicitacoes/edit', $dados);
     }
