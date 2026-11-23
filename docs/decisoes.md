@@ -1,8 +1,8 @@
 # Decisões de projeto (D1–D7)
 
 > Registro das decisões listadas em `13-plano-de-sprints.md`.
-> As decisões D6 e D7 permanecem abertas e serão registradas aqui quando
-> fechadas. A decisão D5 foi fechada na Sprint 6 (ver seção abaixo).
+> A decisão D7 permanece aberta. A decisão D5 foi fechada na Sprint 6 e a D6 na
+> Sprint 8 (ver seções abaixo).
 
 ## D1 — Auth no CI4
 
@@ -81,6 +81,19 @@ operacionaliza a manutenção dos dados usados como selects.
 > Observação: o campo `pes_catpessoa` no formulário de pessoa continua sendo
 > preenchido automaticamente com `0` (D4). Vincular o select de categoria ao
 > cadastro de pessoa é uma melhoria opcional, fora do escopo desta sprint.
+
+## D6 — Banco de dados em produção (container vs KingHost)
+
+**Decisão (fechada na Sprint 8):** **opção A — MariaDB em container com volume
+persistente** (`db_data`), conforme recomendado em `11-deploy-vps-kinghost.md`.
+
+**Justificativa:** controle total e paridade com o ambiente de desenvolvimento;
+backup/restauração via `mariadb-dump` no container; sem dependência do MySQL já
+existente da KingHost. A alternativa (opção B, apontar para o banco existente)
+segue disponível editando `database.default.*` no `.env` e removendo o serviço
+`db` do `docker-compose.prod.yml`.
+
+**Implementação:** ver [`16-deploy-producao.md`](16-deploy-producao.md).
 
 ## Senha inicial do ambiente novo (seeder `AuthSeeder`)
 

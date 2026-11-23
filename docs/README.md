@@ -27,6 +27,7 @@ AASSC, que hoje está em **CodeIgniter 3**, para **CodeIgniter 4**.
 | [13-plano-de-sprints.md](13-plano-de-sprints.md) | Plano de desenvolvimento em sprints |
 | [14-validacao-lado-a-lado.md](14-validacao-lado-a-lado.md) | Roteiro de validação lado a lado com o CI3 (Sprint 7) |
 | [15-revisao-de-seguranca.md](15-revisao-de-seguranca.md) | Revisão de segurança da Sprint 7 |
+| [16-deploy-producao.md](16-deploy-producao.md) | Runbook de deploy em produção (Sprint 8) |
 
 ## Referências (arquivos)
 

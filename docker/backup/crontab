@@ -1,0 +1,8 @@
+# Crontab da VPS (instale com: crontab docker/backup/crontab)
+# Ajuste os caminhos para o diretório real do projeto (abaixo: /opt/aasscnovo).
+
+# Backup diário do banco às 02:00
+0 2 * * * /opt/aasscnovo/docker/backup/backup.sh >> /opt/aasscnovo/backups/backup.log 2>&1
+
+# Renovação do Let's Encrypt + reload do Nginx, diário às 03:30
+30 3 * * * /opt/aasscnovo/docker/nginx/renew-letsencrypt.sh >> /opt/aasscnovo/backups/certbot.log 2>&1

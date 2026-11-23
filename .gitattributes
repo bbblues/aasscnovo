@@ -1,0 +1,4 @@
+# Scripts executados na VPS Linux: forçar LF.
+# (o shebang `#!/usr/bin/env bash` falha com CRLF)
+*.sh text eol=lf
+crontab text eol=lf

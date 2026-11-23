@@ -1,0 +1,52 @@
+name: Deploy em produção
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  testes:
+    name: Testes (PHPUnit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: intl, mbstring, mysqli, curl, sqlite3, pdo_sqlite
+          coverage: none
+
+      - uses: ramsey/composer-install@v3
+
+      - run: composer test
+
+  deploy:
+    name: Deploy (rsync + rebuild)
+    needs: testes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sincroniza arquivos via rsync/SSH
+        uses: easingthemes/ssh-deploy@v5
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          ARGS: "-rlgoDz --delete"
+          SOURCE: "./"
+          REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
+          REMOTE_USER: ${{ secrets.DEPLOY_USER }}
+          TARGET: ${{ secrets.DEPLOY_PATH }}
+          EXCLUDE: "/.git/, /.github/, /.env, /vendor/, /writable/, /certbot/, /backups/, /tests/"
+
+      - name: Instala dependências e sobe a stack
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            cd "${{ secrets.DEPLOY_PATH }}"
+            docker compose -f docker-compose.prod.yml run --rm web composer install --no-dev --optimize-autoloader --no-interaction
+            docker compose -f docker-compose.prod.yml up -d --build

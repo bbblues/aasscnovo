@@ -180,7 +180,15 @@ class App extends BaseConfig
      *
      * @var array<string, string>
      */
-    public array $proxyIPs = [];
+    /**
+     * Em produção a aplicação roda atrás do Nginx (reverse proxy) na rede
+     * Docker. O intervalo 172.16.0.0/12 cobre as redes bridge do Docker, e o
+     * header X-Real-IP é definido pelo Nginx com o IP real do cliente (não é
+     * confiável quando vindo de terceiros). Isso garante o IP correto em
+     * `getIPAddress()` (auditoria em `login_attempts`/`users`) e permite
+     * detectar HTTPS via `X-Forwarded-Proto`.
+     */
+    public array $proxyIPs = ['172.16.0.0/12' => 'X-Real-IP'];
 
     /**
      * --------------------------------------------------------------------------

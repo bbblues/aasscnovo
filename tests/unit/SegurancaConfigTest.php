@@ -23,6 +23,13 @@ final class SegurancaConfigTest extends CIUnitTestCase
         $this->assertContains('csrf', $filters->globals['before']);
     }
 
+    public function testSecureHeadersHabilitado(): void
+    {
+        $filters = config(Filters::class);
+
+        $this->assertContains('secureheaders', $filters->globals['after']);
+    }
+
     public function testCookiesHttpOnly(): void
     {
         $cookie = config(Cookie::class);

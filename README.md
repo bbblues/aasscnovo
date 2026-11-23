@@ -21,7 +21,7 @@ Especificação completa em [`docs/`](docs/README.md) — fonte única de verdad
 | 5 | Pessoas + Solicitações (núcleo do negócio) | ✅ concluída |
 | 6 | Comentários + Relatório + CRUDs auxiliares | ✅ concluída |
 | 7 | Qualidade, validação e segurança | ✅ concluída |
-| 8 | Deploy em produção | ⏳ planejada |
+| 8 | Deploy em produção | 🚧 em andamento (artefatos prontos — [`docs/16`](docs/16-deploy-producao.md)) |
 
 Plano detalhado: [`docs/13-plano-de-sprints.md`](docs/13-plano-de-sprints.md).
 

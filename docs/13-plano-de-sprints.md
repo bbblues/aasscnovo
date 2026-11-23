@@ -198,16 +198,22 @@ de segurança crítico aberto.
 
 **Objetivo:** colocar em produção com segurança (ver `11`).
 
+> **Status:** artefatos de deploy prontos e documentados em
+> [`16-deploy-producao.md`](16-deploy-producao.md). A execução (provisionar a
+> VPS, apontar DNS e fazer cutover) exige acesso à VPS KingHost e credenciais
+> de produção. Decisão **D6** fechada: MariaDB em container (opção A).
+
 - [ ] Provisionar VPS (Docker + Compose), segurança básica (usuário não-root,
-      SSH por chave, `ufw`, `fail2ban` opcional).
-- [ ] Stack produção: `CI_ENVIRONMENT=production`, credenciais fortes, volume
-      persistente (decisão D6).
-- [ ] Nginx reverse proxy: 80→443, TLS Let's Encrypt (`sis.aassc.com.br`),
-      `client_max_body_size`.
-- [ ] DNS apontando para a VPS.
-- [ ] Backups diários (`mysqldump` via cron) + teste de restauração.
+      SSH por chave, `ufw`, `fail2ban` opcional) — runbook em `16`.
+- [x] Stack produção: `CI_ENVIRONMENT=production`, credenciais fortes, volume
+      persistente (decisão D6) — `docker-compose.prod.yml` + `.env.production.example`.
+- [x] Nginx reverse proxy: 80→443, TLS Let's Encrypt (`sis.aassc.com.br`),
+      `client_max_body_size` — `docker/nginx/`.
+- [ ] DNS apontando para a VPS (requer acesso ao painel KingHost).
+- [x] Backups diários (`mariadb-dump` via cron) + teste de restauração —
+      `docker/backup/`.
 - [ ] Deploy e cutover (trocar `sis.aassc.com.br` para o novo sistema).
-- [ ] CI/CD opcional (Git Actions / rsync + restart).
+- [x] CI/CD opcional (Git Actions / rsync + restart) — `.github/workflows/deploy.yml`.
 
 **Critério de aceite:** checklist de produção do CI4 atendido (baseURL, logs,
 opcache, erros ocultos, cookies seguros); HTTPS e backups ativos.
