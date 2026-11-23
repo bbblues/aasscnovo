@@ -71,4 +71,19 @@ final class FuncoesHelperTest extends CIUnitTestCase
         $this->assertSame('caio', simple_lower('Caio'));
         $this->assertSame('', simple_lower(null));
     }
+
+    public function testSituacaoByIdAceitaStringNumerica(): void
+    {
+        $this->assertSame('Em Andamento', situacao_by_id('2'));
+        $this->assertSame('Finalizado', situacao_by_id('3'));
+    }
+
+    public function testConfigPaginatorRetorna20PorPagina(): void
+    {
+        $config = config_paginator(100, 'pessoas');
+
+        $this->assertSame(100, $config['total_rows']);
+        $this->assertSame(20, $config['per_page']);
+        $this->assertSame('pessoas', $config['base_url']);
+    }
 }

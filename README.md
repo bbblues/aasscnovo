@@ -19,7 +19,9 @@ Especificação completa em [`docs/`](docs/README.md) — fonte única de verdad
 | 3 | Autenticação e autorização | ✅ concluída |
 | 4 | Layout base + dashboard + gráficos | ✅ concluída |
 | 5 | Pessoas + Solicitações (núcleo do negócio) | ✅ concluída |
-| 6–8 | Comentários/relatórios, qualidade, deploy | ⏳ planejadas |
+| 6 | Comentários + Relatório + CRUDs auxiliares | ✅ concluída |
+| 7 | Qualidade, validação e segurança | ✅ concluída |
+| 8 | Deploy em produção | ⏳ planejada |
 
 Plano detalhado: [`docs/13-plano-de-sprints.md`](docs/13-plano-de-sprints.md).
 
@@ -97,6 +99,16 @@ docker compose exec web composer test
 # equivalente a:
 docker compose exec web php vendor/bin/phpunit
 ```
+
+Os testes usam SQLite em memória (sem depender de um banco MySQL externo):
+
+- `tests/unit` — funções auxiliares e configurações de segurança.
+- `tests/database` — Models (`Pessoa`, `Solicitacao`, `Comentario`, `Usuario`,
+  `UsuarioGrupo`) e o serviço `Autenticacao` (login, rate limiting, reset).
+- `tests/feature` — fluxo de autenticação via HTTP (filtros `auth`/`group`).
+
+Os dados de teste ficam em `tests/_support/Database/Seeds/Sprint7TestSeeder.php`
+e o schema portável em `tests/_support/Database/Migrations/`.
 
 ## Estrutura do projeto
 

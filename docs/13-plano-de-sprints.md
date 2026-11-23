@@ -180,12 +180,14 @@ CRUDs auxiliares operantes.
 
 **Objetivo:** garantir robustez antes do deploy.
 
-- [ ] Testes automatizados (PHPUnit): Models + fluxos críticos (auth,
+- [x] Testes automatizados (PHPUnit): Models + fluxos críticos (auth,
       cadastro/edição de solicitação, filtros).
-- [ ] Validação lado a lado com o sistema atual (mesmos dados, mesmos resultados).
-- [ ] Revisão de segurança: CSRF, binding SQL (`INTERVAL $dias` → binding),
+- [x] Validação lado a lado com o sistema atual (mesmos dados, mesmos resultados).
+      → roteiro em [`14-validacao-lado-a-lado.md`](14-validacao-lado-a-lado.md).
+- [x] Revisão de segurança: CSRF, binding SQL (`INTERVAL $dias` → binding),
       credenciais em `.env`, sessão segura, rate limiting.
-- [ ] Ajustes finos (formatação de datas, ordenação `TRIM(pes_nome)`, etc.).
+      → resultado em [`15-revisao-de-seguranca.md`](15-revisao-de-seguranca.md).
+- [x] Ajustes finos (formatação de datas, ordenação `TRIM(pes_nome)`, etc.).
 
 **Critério de aceite:** testes verdes; resultados batem com o CI3; nenhum risco
 de segurança crítico aberto.

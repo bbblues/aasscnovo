@@ -25,6 +25,8 @@ AASSC, que hoje está em **CodeIgniter 3**, para **CodeIgniter 4**.
 | [11-deploy-vps-kinghost.md](11-deploy-vps-kinghost.md) | Deploy em VPS dedicada KingHost |
 | [12-roadmap.md](12-roadmap.md) | Fases de implementação |
 | [13-plano-de-sprints.md](13-plano-de-sprints.md) | Plano de desenvolvimento em sprints |
+| [14-validacao-lado-a-lado.md](14-validacao-lado-a-lado.md) | Roteiro de validação lado a lado com o CI3 (Sprint 7) |
+| [15-revisao-de-seguranca.md](15-revisao-de-seguranca.md) | Revisão de segurança da Sprint 7 |
 
 ## Referências (arquivos)
 
